@@ -5,6 +5,8 @@ import { capitalize } from "lodash";
 import { Link, useHistory } from "react-router-dom";
 import { useState } from "react";
 import lodashOrderBy from 'lodash.orderby';
+import { TypographyProps, styled } from '@mui/system';
+
 
 const metersPropsMap: Omit<Record<keyof IGETMeterAPIRes, string>, 'id'> = {
   api_name: 'API Name',
@@ -52,6 +54,18 @@ const useColumnSort = () => {
   }
 }
 
+const Wrapper = styled('div')`
+  margin: 2rem 3rem;
+`
+
+const H1 = styled(Typography) <TypographyProps & { component: React.ElementType }>`
+  margin-bottom: .5rem;
+`;
+// keep all style related props in same location
+H1.defaultProps = {
+  variant: 'h2',
+}
+
 export const Home = ({ meters, postAsyncMeters }: { meters: IGETMeterAPIRes[], postAsyncMeters: (newMeter: IPOSTAndPUTMeterAPIReq) => Promise<void> }) => {
   const history = useHistory();
   const { orderBy, direction, setOrder } = useColumnSort();
@@ -60,9 +74,9 @@ export const Home = ({ meters, postAsyncMeters }: { meters: IGETMeterAPIRes[], p
     meters = lodashOrderBy(meters, [orderBy], [direction]);
   }
 
-  return <div>
+  return <Wrapper>
     <header>
-      <Typography variant="h2" component="h1">Meters</Typography>
+      <H1 component='h1'>Meters</H1>
     </header>
     <main>
       <AddMeter onSubmit={postAsyncMeters} />
@@ -120,5 +134,5 @@ export const Home = ({ meters, postAsyncMeters }: { meters: IGETMeterAPIRes[], p
 
 
     </main>
-  </div >
+  </Wrapper >
 }

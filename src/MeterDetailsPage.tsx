@@ -5,6 +5,19 @@ import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { IGETMeterAPIRes } from './useAsyncMeters';
 import { useHistory } from 'react-router-dom';
+import { TypographyProps, styled } from '@mui/system';
+
+const Wrapper = styled('div')`
+  margin: 2rem 3rem;
+`
+
+const H1 = styled(Typography) <TypographyProps & { component: React.ElementType }>`
+  margin-bottom: .5rem;
+`;
+// keep all style related properties in same location
+H1.defaultProps = {
+  variant: 'h2',
+}
 
 export const MeterDetailsPage = ({ meters, putAsyncMeters, deleteAsyncMeters }: { meters: IGETMeterAPIRes[]; putAsyncMeters: (id: string, data: any) => Promise<any>; deleteAsyncMeters: (id:string) => Promise<any>}) => {
   const { meterId } = useParams<{ meterId: string; }>();
@@ -22,9 +35,9 @@ export const MeterDetailsPage = ({ meters, putAsyncMeters, deleteAsyncMeters }: 
     history.push('/');
   };
 
-  return <div>
+  return <Wrapper>
     <header>
-      <Typography variant="h2" component="h1">Meter Details</Typography>
+      <H1 component="h1">Meter Details</H1>
     </header>
     <main>
       <Input {...register('api_name', { required: true })} id="api-name-field" defaultValue={api_name} />
@@ -42,5 +55,5 @@ export const MeterDetailsPage = ({ meters, putAsyncMeters, deleteAsyncMeters }: 
       <Button sx={{ marginLeft: '2rem' }} variant="contained" onClick={onSubmit}>Update</Button>
       <Button sx={{ marginLeft: '2rem'}} variant="outlined" color="error" onClick={onDelete}>Delete</Button>
     </main>
-  </div>;
+  </Wrapper>;
 };
