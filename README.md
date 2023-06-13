@@ -8,6 +8,6 @@
 1) run `npm install -g yarn` to install `yarn`
 1) run `yarn` in the commandline to install all dependencies
 1) run `yarn start` to run the server
-1) navigate to the url labeled `Local:` to see app in browser
+1) navigate to the url in the terminal labeled `Local:` to see app in browser
 
 
